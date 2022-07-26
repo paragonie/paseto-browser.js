@@ -1,5 +1,8 @@
 # PASETO for the Web Browser
 
+[![Build Status](https://github.com/paragonie/paseto-browser.js/workflows/CI/badge.svg)](https://github.com/paragonie/paseto-browser.js/actions?workflow=CI)
+[![npm version](https://img.shields.io/npm/v/paseto-browser.svg)](https://npm.im/paseto-browser)
+
 This implements PASETO v4.local and v4.public in the browser, as well as
 PASERK k4.seal.
 
