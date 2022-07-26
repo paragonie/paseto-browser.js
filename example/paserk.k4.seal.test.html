@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PASETO v4.local test</title>
+</head>
+<body>
+<script type="module" src="../node_modules/tweetnacl/nacl-fast.js"></script>
+<script type="module" src="../dist/paseto.v4.local.js"></script>
+<script type="module" src="../dist/paserk.k4.seal.js"></script>
+<script type="module">
+(async function () {
+    const test = PaserkK4Seal.generate()
+
+    document.getElementById('testoutput').innerHTML = '';
+    document.getElementById('testoutput').innerHTML += "PASERK Keypair\n";
+    document.getElementById('testoutput').innerHTML += "\tSK:  [" + test.xsk.toString() + "]\n";
+    document.getElementById('testoutput').innerHTML += "\tPK:  [" + test.xpk.toString() + "]\n";
+    document.getElementById('testoutput').innerHTML += "\txSK: [" + test.xsk.toString() + "]\n";
+    document.getElementById('testoutput').innerHTML += "\txPK: [" + test.xpk.toString() + "]\n\n";
+
+    const local = PasetoV4Local.generate()
+
+    document.getElementById('testoutput').innerHTML += "PASETO Key: [" + local.getKey().toString() + "]\n\n";
+
+    const wrapped = await test.wrap(local)
+
+    document.getElementById('testoutput').innerHTML += "PASERK:\n";
+    document.getElementById('testoutput').innerHTML += wrapped + "\n\n";
+
+    const unwrapped = await test.unwrap(wrapped)
+
+    document.getElementById('testoutput').innerHTML += "Unwrapped key: ";
+    document.getElementById('testoutput').innerHTML += "[" + unwrapped.getKey() + "]\n\n";
+
+    const token = await local.encode({'exp': "2039-01-01T13:37:00+00:00"}, {'wpk': wrapped})
+
+    document.getElementById('testoutput').innerHTML += "PASETO: ";
+    document.getElementById('testoutput').innerHTML += token + "\n";
+
+    const footer = PasetoV4Local.getFooter(token, true)
+
+    document.getElementById('testoutput').innerHTML += "Footer: ";
+    document.getElementById('testoutput').innerHTML += JSON.stringify(footer) + "\n\n";
+
+    const unwrapTwo = await test.unwrap(footer.wpk);
+
+    document.getElementById('testoutput').innerHTML += "Unwrapped \"wpk\" footer claim: ";
+    document.getElementById('testoutput').innerHTML += "[" + unwrapTwo.getKey() + "]\n\n";
+
+    const decoded = await unwrapTwo.decode(token);
+    document.getElementById('testoutput').innerHTML += "Claims:\n";
+    document.getElementById('testoutput').innerHTML += JSON.stringify(decoded) + "\n\n";
+
+    document.getElementById('testoutput').innerHTML += "Test result: <strong style='color: #009900'>OK</strong>";
+})();
+</script>
+<pre id="testoutput"></pre>
+</body>
+</html>

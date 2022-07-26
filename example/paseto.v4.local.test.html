@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PASETO v4.local test</title>
+</head>
+<body>
+<script type="module" src="../dist/paseto.v4.local.js"></script>
+<script type="module">
+    (async function () {
+        const test = PasetoV4Local.generate()
+        document.getElementById('testoutput').innerHTML = '';
+        document.getElementById('testoutput').innerHTML += "Key: [" + test.getKey().toString() + "]\n";
+
+        const token = await test.encode({'exp': '2039-01-01T00:00:00+00:00', 'test': 'yes'})
+        document.getElementById('testoutput').innerHTML += "Token:\n";
+        document.getElementById('testoutput').innerHTML += token + "\n\n";
+
+        const decoded = await test.decode(token)
+        document.getElementById('testoutput').innerHTML += "Claims:\n";
+        document.getElementById('testoutput').innerHTML += JSON.stringify(decoded) + "\n\n";
+
+        document.getElementById('testoutput').innerHTML += "Test result: <strong style='color: #009900'>OK</strong>";
+    })();
+</script>
+<pre id="testoutput"></pre>
+</body>
+</html>

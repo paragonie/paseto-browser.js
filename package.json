@@ -1,0 +1,46 @@
+{
+  "name": "paseto-browser",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "In-browser JavaScript implementation of PASETO",
+  "author": "Paragon Initiative Enterprises, LLC",
+  "license": "ISC",
+  "keywords": [
+    "PASETO",
+    "PASERK",
+    "security token",
+    "bearer token",
+    "access token",
+    "cryptography",
+    "browser",
+    "EdDSA",
+    "ECDH",
+    "Ed25519",
+    "X25519",
+    "XChaCha20",
+    "BLAKE2b"
+  ],
+  "dependencies": {
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^10.0.0",
+    "rollup": "^2.77.0",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "repository": "https://github.com/paragonie/paseto-browser.js",
+  "files": [
+    "dist/",
+    "lib/",
+    "index.d.ts",
+    "index.js"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "rollup -c --compact --minifyInternalExports",
+    "test": "mocha"
+  }
+}
