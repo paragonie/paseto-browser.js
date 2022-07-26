@@ -9,9 +9,11 @@ import * as path from 'path'
 
 let base = path.dirname(import.meta.url)
 if (base.slice(0,8) === 'file:///') {
-    base = base.slice(8)
-    if (process.platform === "win32")
-        base = base.replace(/\//g, '\\')
+    if (process.platform === "win32") {
+        base = base.slice(8).replace(/\//g, '\\')
+    } else {
+        base = base.slice(7)
+    }
 }
 
 describe('PASERK k4.seal Test', () => {
