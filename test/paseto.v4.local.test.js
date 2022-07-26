@@ -8,7 +8,9 @@ import { hex_to_u8, u8_to_hex } from '../lib/util.js'
 
 let base = path.dirname(import.meta.url)
 if (base.slice(0,8) === 'file:///') {
-    base = base.slice(8).replace(/\//g, '\\')
+    base = base.slice(8)
+    if (process.platform === "win32")
+        base = base.replace(/\//g, '\\')
 }
 
 const random = crypto.randomBytes(32)
