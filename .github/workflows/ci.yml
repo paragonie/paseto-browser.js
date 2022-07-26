@@ -17,11 +17,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: install dependencies
         run: npm install
-      - name: test without sodium-native
-        run: npm test
-      - name: install sodium-native
-        run: npm install --save sodium-native
-      - name: test with sodium-native
+      - name: test
         run: npm test
 
   build_latest:
