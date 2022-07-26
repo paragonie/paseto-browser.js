@@ -1,7 +1,7 @@
 {
   "name": "paseto-browser",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "In-browser JavaScript implementation of PASETO",
   "author": "Paragon Initiative Enterprises, LLC",
   "license": "ISC",
